@@ -13,4 +13,9 @@ public class BuildingAction : MonoBehaviour
     {
         transform.localScale = Vector3.one;
     }
+
+    private void OnDisable()
+    {
+        InteractableDoor.OnEnterBuilding -= BuildingDoesSomething;
+    }
 }
