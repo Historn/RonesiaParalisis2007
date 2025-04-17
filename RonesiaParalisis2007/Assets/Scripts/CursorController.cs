@@ -20,7 +20,7 @@ public class CursorController : MonoBehaviour
     public static Action MakeCursorInteractive;
     bool cursorIsInteractive = false;
 
-    public float distanceThreshold;
+    [SerializeField] LayerMask clickableLayers;
 
     private void Awake()
     {
@@ -34,29 +34,22 @@ public class CursorController : MonoBehaviour
 
     private void Update()
     {
-        FindInteractableWithinDistanceThreshold();
+        FindInteractable();
     }
 
-    private void FindInteractableWithinDistanceThreshold()
+    private void FindInteractable()
     {
         newSelectionObject = null;
+        RaycastHit hit;        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        for (int itemIndex = 0; itemIndex < interactablesManager.Interactables.Count; itemIndex++)
+        if (Physics.Raycast(ray, out hit, 100, clickableLayers))
         {
-            Vector3 fromMouseToInteractableOffset = interactablesManager.Interactables[itemIndex].transform.position
-                - new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+            newSelectionObject = hit.collider.gameObject.GetComponent<InteractableObject>();
 
-            float sqrMag = fromMouseToInteractableOffset.sqrMagnitude;
-
-            if (sqrMag < distanceThreshold * distanceThreshold)
+            if (cursorIsInteractive == false && newSelectionObject)
             {
-                newSelectionObject = interactablesManager.Interactables[itemIndex];
-
-                if (cursorIsInteractive == false)
-                {
-                    InteractiveCursorTexture();
-                }
-                break;
+                InteractiveCursorTexture();
             }
         }
 
@@ -116,7 +109,7 @@ public class CursorController : MonoBehaviour
     {
         if (newSelectionObject != null)
         {
-            InteractableObject interactable = newSelectionObject.gameObject.GetComponent<InteractableObject>();
+            InteractableObject interactable = newSelectionObject;
             if (interactable != null) { interactable.OnClickAction(); }
             newSelectionObject = null;
         }

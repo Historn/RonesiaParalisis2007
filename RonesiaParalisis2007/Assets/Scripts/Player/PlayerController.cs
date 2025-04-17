@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
         {
             agent.destination = hit.point;
-            Debug.Log("GO TO DESTINATION");
+            //Debug.Log("GO TO DESTINATION");
             if (clickEffect != null)
                 Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);
         }

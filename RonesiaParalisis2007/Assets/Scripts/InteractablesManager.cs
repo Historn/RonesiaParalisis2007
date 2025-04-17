@@ -13,8 +13,6 @@ public class InteractablesManager : MonoBehaviour
         get => interactables;
     }
 
-    Camera mainCamera;
-
     public static Action<InteractableObject> AddToInteractablesEvent;
     public static Action<InteractableObject> RemoveFromInteractablesEvent;
 
@@ -32,28 +30,5 @@ public class InteractablesManager : MonoBehaviour
     private void RemoveFromListOfInteractables(InteractableObject obj)
     {
         interactables.Remove(obj);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        mainCamera = Camera.main;
-        AllChildrenWorldToScreenPoint();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
-    void AllChildrenWorldToScreenPoint()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).position = mainCamera.WorldToScreenPoint(transform.GetChild(i).position);
-            transform.GetChild(i).localScale = Vector3.one * 100;
-        }
     }
 }
