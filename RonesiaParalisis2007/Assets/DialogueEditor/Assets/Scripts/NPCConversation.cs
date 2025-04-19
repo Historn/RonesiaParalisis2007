@@ -43,7 +43,7 @@ namespace DialogueEditor
         [SerializeField] public TMPro.TMP_FontAsset EndConversationFont;
 
         // Runtime vars
-        public UnityEngine.Events.UnityEvent Event;
+        public UnityEngine.Events.UnityEvent<string> Event;
         public List<EditableParameter> ParameterList; // Serialized into the json string
 
         
@@ -76,7 +76,7 @@ namespace DialogueEditor
             // Add a new Component for this node
             NodeEventHolder h = EventInfo.gameObject.AddComponent<NodeEventHolder>();
             h.NodeID = id;
-            h.Event = new UnityEngine.Events.UnityEvent();
+            h.Event = new UnityEngine.Events.UnityEvent<string>();
             NodeSerializedDataList.Add(h);
             return h;
         }
@@ -161,7 +161,7 @@ namespace DialogueEditor
             conversation.SaveVersion = this.saveVersion;
 
             // Clear our dummy event
-            Event = new UnityEngine.Events.UnityEvent();
+            Event = new UnityEngine.Events.UnityEvent<string>();
 
             // Reconstruct
             ReconstructEditableConversation(conversation);

@@ -9,7 +9,7 @@ namespace DialogueEditor
     [System.Serializable]
     public class NodeEventHolder : MonoBehaviour
     {
-        [SerializeField] public UnityEngine.Events.UnityEvent Event;
+        [SerializeField] public UnityEngine.Events.UnityEvent<string> Event;
 
         [SerializeField] public int NodeID;
         [SerializeField] public TMPro.TMP_FontAsset TMPFont;
