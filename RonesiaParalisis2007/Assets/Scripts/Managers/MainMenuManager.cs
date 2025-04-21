@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,10 +20,14 @@ public class MainMenuManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        NewGameButton.GetComponent<Button>().onClick.AddListener(NewGameButtonPress);
-        LoadButton.GetComponent<Button>().onClick.AddListener(LoadButtonPress);
-        ExitButton.GetComponent<Button>().onClick.AddListener(ExitButtonPress);
-        BackLoadGameButton.GetComponent<Button>().onClick.AddListener(BackLoadGameButtonPress);
+        NewGameButton.onClick.AddListener(NewGameButtonPress);
+        LoadButton.onClick.AddListener(LoadButtonPress);
+        ExitButton.onClick.AddListener(ExitButtonPress);
+        BackLoadGameButton.onClick.AddListener(BackLoadGameButtonPress);
+
+        LoadGame1Button.onClick.AddListener(LoadSlot1Press);
+        LoadGame2Button.onClick.AddListener(LoadSlot2Press);
+        LoadGame3Button.onClick.AddListener(LoadSlot3Press);
 
         ActivateMainMenuPanelStart(true);
         ActivateMainMenuPanelLoad(false);
@@ -42,6 +47,35 @@ public class MainMenuManager : MonoBehaviour
     void ActivateMainMenuPanelLoad(bool activate)
     {
         LoadMainMenuPanel.SetActive(activate);
+
+        if(activate)
+        {
+            
+            if (SaveSystem.SaveFileExists(1))
+            {
+                LoadGame1Button.GetComponentInChildren<TextMeshProUGUI>().text = "Load Save 1";
+            }
+            else
+            {
+                LoadGame1Button.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Data";
+            }
+            if (SaveSystem.SaveFileExists(2))
+            {
+                LoadGame2Button.GetComponentInChildren<TextMeshProUGUI>().text = "Load Save 2";
+            }
+            else
+            {
+                LoadGame2Button.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Data";
+            }
+            if (SaveSystem.SaveFileExists(3))
+            {
+                LoadGame3Button.GetComponentInChildren<TextMeshProUGUI>().text = "Load Save 3";
+            }
+            else
+            {
+                LoadGame3Button.GetComponentInChildren<TextMeshProUGUI>().text = "No Save Data";
+            }
+        }
     }
 
     public void NewGameButtonPress()
@@ -64,5 +98,20 @@ public class MainMenuManager : MonoBehaviour
     {
         ActivateMainMenuPanelLoad(false);
         ActivateMainMenuPanelStart(true);
+    }
+
+    public void LoadSlot1Press()
+    {
+
+    }
+
+    public void LoadSlot2Press()
+    {
+
+    }
+
+    public void LoadSlot3Press()
+    {
+
     }
 }

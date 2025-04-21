@@ -72,4 +72,20 @@ public class StoryManager : MonoBehaviour
            Debug.Log("Story Variable: " + storyVariableName + "does not exist");
        }
     }
+
+    public void Save(ref StoryManagerSaveData data)
+    {
+        data.storyVariables = storyVariables;
+    }
+
+    public void Load(StoryManagerSaveData data)
+    {
+        storyVariables = data.storyVariables;
+    }
+}
+
+[System.Serializable]
+public struct StoryManagerSaveData
+{
+    public Dictionary<string, int> storyVariables;
 }
