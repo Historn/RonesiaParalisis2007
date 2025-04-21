@@ -63,7 +63,7 @@ public class CursorController : MonoBehaviour
     private void DefaultCursorTexture()
     {
         cursorIsInteractive = false;
-        Cursor.SetCursor(default, default, default);
+        Cursor.SetCursor(cursorTextures[0], default, default);
     }
 
     private void InteractiveCursorTexture()
@@ -81,6 +81,11 @@ public class CursorController : MonoBehaviour
             case InteractType.Grab:
                 {
                     Cursor.SetCursor(cursorTextures[2], hotspot, CursorMode.Auto);
+                }
+                break;
+            case InteractType.ChangeScene:
+                {
+                    Cursor.SetCursor(cursorTextures[3], hotspot, CursorMode.Auto);
                 }
                 break;
             case InteractType.None:
