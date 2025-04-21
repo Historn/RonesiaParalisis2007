@@ -1,9 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class CursorController : MonoBehaviour
 {
+    NavMeshAgent agent;
+
     InputAction interactAction;
 
     [SerializeField] InteractablesManager interactablesManager;
@@ -12,9 +16,11 @@ public class CursorController : MonoBehaviour
 
     Cursor cursor;
 
-    [SerializeField]
-    InteractableObject newSelectionObject;
-    InteractableObject currentSelectionObject;
+    [SerializeField] InteractableObject newSelectionObject;
+    [SerializeField] InteractableObject currentSelectionObject;
+    InteractableObject clickedInteractable;
+    float distance = 100f;
+
 
     public static Action MakeCursorDefault;
     public static Action MakeCursorInteractive;
@@ -22,14 +28,20 @@ public class CursorController : MonoBehaviour
 
     [SerializeField] LayerMask clickableLayers;
 
+    IEnumerator moveToInteract;
+
     private void Awake()
     {
+        moveToInteract = MoveToInteract();
+
         interactAction = InputSystem.actions.FindAction("Interact");
         interactAction.started += _ => StartedClick();
         interactAction.performed += _ => EndedClick();
 
         MakeCursorDefault += DefaultCursorTexture;
         MakeCursorInteractive += InteractiveCursorTexture;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
@@ -40,7 +52,7 @@ public class CursorController : MonoBehaviour
     private void FindInteractable()
     {
         newSelectionObject = null;
-        RaycastHit hit;        
+        RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, 100, clickableLayers))
@@ -58,6 +70,7 @@ public class CursorController : MonoBehaviour
             currentSelectionObject = newSelectionObject;
             DefaultCursorTexture();
         }
+        if (clickedInteractable != null) distance = Vector3.Distance(transform.position, clickedInteractable.transform.position);
     }
 
     private void DefaultCursorTexture()
@@ -97,14 +110,14 @@ public class CursorController : MonoBehaviour
                 break;
         }
 
-        
+
     }
 
     private void StartedClick()
     {
 
     }
-    
+
     private void EndedClick()
     {
         OnClickInteractable();
@@ -114,9 +127,28 @@ public class CursorController : MonoBehaviour
     {
         if (newSelectionObject != null)
         {
-            InteractableObject interactable = newSelectionObject;
-            if (interactable != null) { interactable.OnClickAction(); }
+            StopCoroutine(moveToInteract);
+
+            clickedInteractable = newSelectionObject;
+            agent.destination = clickedInteractable.transform.position;
+
+            StartCoroutine(moveToInteract);
             newSelectionObject = null;
+        }
+    }
+
+    IEnumerator MoveToInteract()
+    {
+        while (distance > 1.5f)
+        {
+            yield return null;
+        }
+        
+        if (clickedInteractable != null)
+        {
+            agent.ResetPath();
+            clickedInteractable.OnClickAction();
+            clickedInteractable = null;
         }
     }
 }
