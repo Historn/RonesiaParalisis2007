@@ -20,6 +20,7 @@ public class CursorController : MonoBehaviour
     [SerializeField] InteractableObject currentSelectionObject;
     InteractableObject clickedInteractable;
     float distance = 100f;
+    [SerializeField] float interactionDistance = 100f;
 
 
     public static Action MakeCursorDefault;
@@ -139,7 +140,7 @@ public class CursorController : MonoBehaviour
 
     IEnumerator MoveToInteract()
     {
-        while (distance > 1.5f)
+        while (distance > interactionDistance)
         {
             yield return null;
         }
