@@ -14,6 +14,7 @@ public class DoorAction : MonoBehaviour
 
     private void ActivateDoor()
     {
+        Debug.Log("ActivateDoor: Scene " + SceneToLoad);
         SceneManager.LoadScene(SceneToLoad, LoadSceneMode.Single);
     }
 
