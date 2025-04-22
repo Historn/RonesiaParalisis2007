@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1760301735800398291}
   - component: {fileID: 1389504445821903795}
   - component: {fileID: 998040728423191760}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 7098554371229049093}
   - component: {fileID: 4171032164472935367}
   - component: {fileID: 8455319240453455083}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,13 +254,13 @@ GameObject:
   - component: {fileID: 4766872045070541340}
   - component: {fileID: 7503315286424530833}
   - component: {fileID: 6156032878530931834}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5668860059652169882
 RectTransform:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 8990467640403755640}
   - component: {fileID: 9059814372243196454}
   - component: {fileID: 8386152132510072536}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 7007424199275368853}
   - component: {fileID: 3672080163230112662}
   - component: {fileID: 8019552032407264272}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 982349504658701083}
   - component: {fileID: 2297289563071769985}
   - component: {fileID: 4370760276677694845}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 5528922053596423571}
   - component: {fileID: 4785092309523371998}
   - component: {fileID: 5175165318875519140}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SaveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
