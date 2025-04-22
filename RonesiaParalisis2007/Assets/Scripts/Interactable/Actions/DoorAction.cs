@@ -9,7 +9,9 @@ public class DoorAction : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InteractableDoor.OnInteractDoor += ActivateDoor;
+        this.GetComponent<InteractableDoor>().OnInteractDoor += ActivateDoor;
+
+       // InteractableDoor.OnInteractDoor += ActivateDoor;
     }
 
     private void ActivateDoor()
@@ -20,6 +22,6 @@ public class DoorAction : MonoBehaviour
 
     private void OnDisable()
     {
-        InteractableDoor.OnInteractDoor -= ActivateDoor;
+        this.GetComponent<InteractableDoor>().OnInteractDoor -= ActivateDoor;
     }
 }

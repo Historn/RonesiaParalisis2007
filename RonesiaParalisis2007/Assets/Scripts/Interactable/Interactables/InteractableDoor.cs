@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InteractableDoor : InteractableObject
 {
-    public static Action OnInteractDoor;
+    public Action OnInteractDoor { get; set; }
 
     public override void OnClickAction()
     {
