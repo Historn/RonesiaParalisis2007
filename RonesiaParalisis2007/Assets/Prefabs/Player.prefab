@@ -790,7 +790,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 92f064f728a70f04f9cf729774eebd72, type: 3}
   newSelectionObject: {fileID: 0}
   currentSelectionObject: {fileID: 0}
-  interactionDistance: 2
+  interactionDistance: 3
   clickableLayers:
     serializedVersion: 2
     m_Bits: 8

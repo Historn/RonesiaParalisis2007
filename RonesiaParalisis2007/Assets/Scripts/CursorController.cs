@@ -148,6 +148,7 @@ public class CursorController : MonoBehaviour
         if (clickedInteractable != null)
         {
             agent.ResetPath();
+            agent.isStopped = true;
             clickedInteractable.OnClickAction();
             clickedInteractable = null;
         }
