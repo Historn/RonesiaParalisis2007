@@ -18,8 +18,8 @@ public class CursorController : MonoBehaviour
 
     [SerializeField] InteractableObject newSelectionObject;
     [SerializeField] InteractableObject currentSelectionObject;
-    InteractableObject clickedInteractable;
-    float distance = 100f;
+    [SerializeField] InteractableObject clickedInteractable;
+    [SerializeField] float distance = 100f;
     [SerializeField] float interactionDistance = 100f;
 
 
@@ -71,6 +71,7 @@ public class CursorController : MonoBehaviour
             currentSelectionObject = newSelectionObject;
             DefaultCursorTexture();
         }
+        distance = 100;
         if (clickedInteractable != null) distance = Vector3.Distance(transform.position, clickedInteractable.transform.position);
     }
 
@@ -128,12 +129,12 @@ public class CursorController : MonoBehaviour
     {
         if (newSelectionObject != null)
         {
-            StopCoroutine(moveToInteract);
+            StopCoroutine(MoveToInteract());
 
             clickedInteractable = newSelectionObject;
             agent.destination = clickedInteractable.transform.position;
 
-            StartCoroutine(moveToInteract);
+            StartCoroutine(MoveToInteract());
             newSelectionObject = null;
         }
     }
@@ -148,7 +149,6 @@ public class CursorController : MonoBehaviour
         if (clickedInteractable != null)
         {
             agent.ResetPath();
-            agent.isStopped = true;
             clickedInteractable.OnClickAction();
             clickedInteractable = null;
         }
