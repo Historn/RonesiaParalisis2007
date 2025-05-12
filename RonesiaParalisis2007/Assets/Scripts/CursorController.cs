@@ -84,7 +84,7 @@ public class CursorController : MonoBehaviour
     private void InteractiveCursorTexture()
     {
         cursorIsInteractive = true;
-        Vector2 hotspot = new Vector2(cursorTextures[0].width / 2, 0);
+        Vector2 hotspot = new Vector2(0, 0);
 
         switch (newSelectionObject.interactType)
         {

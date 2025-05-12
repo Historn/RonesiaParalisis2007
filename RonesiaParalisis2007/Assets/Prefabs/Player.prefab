@@ -784,12 +784,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactablesManager: {fileID: 0}
   cursorTextures:
-  - {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
-  - {fileID: 2800000, guid: b742388d2f7855d41ab77f2ffbe4e558, type: 3}
-  - {fileID: 2800000, guid: f6b5dd15dd6519e4aa3ad03b1da0876d, type: 3}
-  - {fileID: 2800000, guid: 92f064f728a70f04f9cf729774eebd72, type: 3}
+  - {fileID: 2800000, guid: 42ec8a0e710138343a271d732299cfb6, type: 3}
+  - {fileID: 2800000, guid: 442311c923fee7a4c97faa6fdeb43d7d, type: 3}
+  - {fileID: 2800000, guid: b669239a8c1b6ac4080aa3be64aefa82, type: 3}
+  - {fileID: 2800000, guid: d0bd63dc4e8d4a845a0f198c39644e18, type: 3}
   newSelectionObject: {fileID: 0}
   currentSelectionObject: {fileID: 0}
+  clickedInteractable: {fileID: 0}
+  distance: 100
   interactionDistance: 3
   clickableLayers:
     serializedVersion: 2
