@@ -14,9 +14,6 @@ public class StoryManager : MonoBehaviour
 
     public UnityEvent<string, int> UpdateStory;
 
-    [Header("Dialogue Branches")]
-    public List<Branch> branches = new List<Branch>();
-
     public static Action OnStoryChange;
 
     private void Awake()
