@@ -1,9 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Events;
-using DialogueEditor;
-using System;
 
 public class StoryManager : MonoBehaviour
 {
@@ -12,9 +8,11 @@ public class StoryManager : MonoBehaviour
     // Story variables - these will track player choices
     [SerializeField] private Dictionary<string, int> storyVariables = new Dictionary<string, int>();
 
-    public UnityEvent<string, int> UpdateStory;
+    [SerializeField] private StoryEvent currentActiveEvent;
+    public StoryEvent[] StoryEvents;
 
-    public static Action OnStoryChange;
+    public delegate void OnStoryChange();
+    public static event OnStoryChange onStoryChange;
 
     private void Awake()
     {
@@ -30,18 +28,7 @@ public class StoryManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        CheckStoryChanged();
     }
 
     private void InitializeStoryVariables()
@@ -57,15 +44,18 @@ public class StoryManager : MonoBehaviour
 
     public int GetStoryVariable(string storyVariable)
     {
-        return storyVariables[storyVariable];
+        if (storyVariables.TryGetValue(storyVariable, out int value))
+            return value;
+
+        Debug.LogWarning($"Story variable '{storyVariable}' not found.");
+        return 0;
     }
 
     public void IncreaseStoryVariable(string storyVariableName)
     {
         if (storyVariables.ContainsKey(storyVariableName))
         {
-            storyVariables[storyVariableName] += 1;
-            CheckStoryChanged();
+            storyVariables[storyVariableName]++;
             Debug.Log($"Story Variable: {storyVariableName} increased");
         }
         else
@@ -78,8 +68,7 @@ public class StoryManager : MonoBehaviour
     {
         if (storyVariables.ContainsKey(storyVariableName))
         {
-            storyVariables[storyVariableName] -= 1;
-            CheckStoryChanged();
+            storyVariables[storyVariableName]--;
             Debug.Log($"Story Variable: {storyVariableName} increased");
         }
         else
@@ -88,10 +77,49 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    // Cada vez que cambia una variable mirar si hay que cambiar de rama?
-    void CheckStoryChanged()
+    public void CheckStoryChanged()
     {
-        //if (changed) { }
+        foreach (StoryEvent storyEvent in StoryEvents)
+        {
+            Debug.Log($"Checking {storyEvent.name}");
+            if (storyVariables["trust"] == storyEvent.requiredTrust &&
+                storyVariables["knowledge"] == storyEvent.requiredKnowledge &&
+                storyVariables["empathy"] == storyEvent.requiredEmpathy &&
+                storyVariables["authority"] == storyEvent.requiredAuthority)
+            {
+                if (currentActiveEvent != storyEvent)
+                {
+                    SetActiveStoryEvent(storyEvent);
+                }
+                return;
+            }
+        }
+        Debug.Log("No story branch matches current variables.");
+    }
+
+    private void SetActiveStoryEvent(StoryEvent newEvent)
+    {
+        Debug.Log($"Setting new active story event: {newEvent.eventName}");
+
+        currentActiveEvent = newEvent;
+
+        onStoryChange?.Invoke();
+
+        UpdateAllNPCConversations();
+    }
+
+    public bool IsEventActive(StoryEvent storyEvent)
+    {
+        return currentActiveEvent == storyEvent;
+    }
+
+    private void UpdateAllNPCConversations()
+    {
+        NPCAction[] npcs = FindObjectsOfType<NPCAction>();
+        foreach (var npc in npcs)
+        {
+            npc.UpdateConversation(currentActiveEvent != null ? currentActiveEvent.eventName : "");
+        }
     }
 
     public void Save(ref StoryManagerSaveData data)
@@ -102,6 +130,7 @@ public class StoryManager : MonoBehaviour
     public void Load(StoryManagerSaveData data)
     {
         storyVariables = data.storyVariables;
+        CheckStoryChanged();
     }
 }
 

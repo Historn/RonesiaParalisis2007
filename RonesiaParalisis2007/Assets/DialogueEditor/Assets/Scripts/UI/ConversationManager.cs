@@ -528,7 +528,7 @@ namespace DialogueEditor
 
             // Call the event
             if (speech.Event != null)
-                speech.Event.Invoke(speech.storyStepString);
+                speech.Event.Invoke();
 
             DoParamAction(speech);
 
@@ -567,7 +567,7 @@ namespace DialogueEditor
             m_selectedOption = option;
             DoParamAction(option);
             if (option.Event != null)
-                option.Event.Invoke(option.storyStepString);
+                option.Event.Invoke();
             SetState(eState.TransitioningOptionsOff);
         }
 

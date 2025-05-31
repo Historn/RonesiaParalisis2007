@@ -71,9 +71,7 @@ namespace DialogueEditor
         public float Volume;
 
         /// <summary> UnityEvent, to betriggered when this Node starts. </summary>
-        public UnityEngine.Events.UnityEvent<string> Event;
-
-        public string storyStepString;
+        public UnityEngine.Events.UnityEvent Event;
     }
 
 
@@ -82,7 +80,6 @@ namespace DialogueEditor
         public override eNodeType NodeType { get { return eNodeType.Option; } }
 
         /// <summary> UnityEvent, to betriggered when this Option is chosen. </summary>
-        public UnityEngine.Events.UnityEvent<string> Event;
-        public string storyStepString;
+        public UnityEngine.Events.UnityEvent Event;
     }
 }
