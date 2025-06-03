@@ -1397,33 +1397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeb46d4f2ce6fe489e2ed5eb4bc77c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateStory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 889071467}
-        m_TargetAssemblyTypeName: StoryManager, Assembly-CSharp
-        m_MethodName: UpdateStoryCall
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 889071467}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  currentActiveEvent: {fileID: 0}
+  StoryEvents: []
 --- !u!1 &978723723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3316,7 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8dfb102dcb28d440a3f8061fb140534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversation: {fileID: 978723724}
+  conversations: []
 --- !u!1 &1861864481
 GameObject:
   m_ObjectHideFlags: 0
