@@ -8,7 +8,7 @@ public class NPCAction : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
-        InteractableNPC.OnAction += NPCDoesSomething;
+        this.GetComponent<InteractableNPC>().OnAction += NPCDoesSomething;
     }
 
     private void NPCDoesSomething()
@@ -27,6 +27,7 @@ public class NPCAction : MonoBehaviour
 
     public void UpdateConversation(string activeStoryEvent)
     {
+        Debug.Log(name);
         foreach (var convo in conversations)
             convo.enabled = false;
 
@@ -35,14 +36,16 @@ public class NPCAction : MonoBehaviour
             if (convo.name.Contains(activeStoryEvent))
             {
                 convo.enabled = true;
-                break;
+                return;
             }
         }
+
+        if (conversations.Length > 0) conversations[0].enabled = true;
     }
 
     // Update is called once per frame
     void OnDisable()
     {
-        InteractableNPC.OnAction -= NPCDoesSomething;
+        this.GetComponent<InteractableNPC>().OnAction -= NPCDoesSomething;
     }
 }

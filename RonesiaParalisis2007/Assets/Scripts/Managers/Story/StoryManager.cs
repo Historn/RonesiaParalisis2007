@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StoryManager : MonoBehaviour
 {
     public static StoryManager Instance;
 
     // Story variables - these will track player choices
-    [SerializeField] private Dictionary<string, int> storyVariables = new Dictionary<string, int>();
+    [SerializeField] int trust;
+    [SerializeField] int knowledge;
 
     [SerializeField] private StoryEvent currentActiveEvent;
     public StoryEvent[] StoryEvents;
@@ -14,78 +16,67 @@ public class StoryManager : MonoBehaviour
     public delegate void OnStoryChange();
     public static event OnStoryChange onStoryChange;
 
+    PlayerController playerController;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            // Initialize any starting variables
-            InitializeStoryVariables();
+            
         }
         else
         {
             Destroy(gameObject);
         }
-        CheckStoryChanged();
+        
     }
 
     private void InitializeStoryVariables()
     {
-        // Initial values
-        storyVariables["trust"] = 0;
-        storyVariables["knowledge"] = 0;
-        storyVariables["empathy"] = 0;
-        storyVariables["authority"] = 0;
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
 
+        trust = GameManager.Instance.trust;
+        knowledge = GameManager.Instance.knowledge;
         // Load saved variables from PlayerPrefs or a save file
     }
 
-    public int GetStoryVariable(string storyVariable)
+    private void Start()
     {
-        if (storyVariables.TryGetValue(storyVariable, out int value))
-            return value;
-
-        Debug.LogWarning($"Story variable '{storyVariable}' not found.");
-        return 0;
+        // Initialize any starting variables
+        InitializeStoryVariables();
+        CheckStoryChanged();
     }
 
-    public void IncreaseStoryVariable(string storyVariableName)
+    public void IncreaseTrustVariable()
     {
-        if (storyVariables.ContainsKey(storyVariableName))
-        {
-            storyVariables[storyVariableName]++;
-            Debug.Log($"Story Variable: {storyVariableName} increased");
-        }
-        else
-        {
-            Debug.Log($"Story Variable: {storyVariableName} does not exist");
-        }
+        trust++;
+        GameManager.Instance.trust = trust;
+    }
+    public void IncreaseKnowledgeVariable()
+    {
+        knowledge++;
+        GameManager.Instance.knowledge = knowledge;
     }
 
-    public void DecreaseStoryVariable(string storyVariableName)
+    public void DecreaseTrustVariable()
     {
-        if (storyVariables.ContainsKey(storyVariableName))
-        {
-            storyVariables[storyVariableName]--;
-            Debug.Log($"Story Variable: {storyVariableName} increased");
-        }
-        else
-        {
-            Debug.Log("Story Variable: {storyVariableName} does not exist");
-        }
+        trust--;
+        GameManager.Instance.trust = trust;
+    }
+    public void DecreaseKnowledgeVariable()
+    {
+        knowledge--;
+        GameManager.Instance.knowledge = knowledge;
     }
 
     public void CheckStoryChanged()
     {
         foreach (StoryEvent storyEvent in StoryEvents)
         {
-            Debug.Log($"Checking {storyEvent.name}");
-            if (storyVariables["trust"] == storyEvent.requiredTrust &&
-                storyVariables["knowledge"] == storyEvent.requiredKnowledge &&
-                storyVariables["empathy"] == storyEvent.requiredEmpathy &&
-                storyVariables["authority"] == storyEvent.requiredAuthority)
+            //Debug.Log($"Checking {storyEvent.name}");
+            if (trust == storyEvent.requiredTrust &&
+                knowledge == storyEvent.requiredKnowledge)
             {
                 if (currentActiveEvent != storyEvent)
                 {
@@ -124,12 +115,14 @@ public class StoryManager : MonoBehaviour
 
     public void Save(ref StoryManagerSaveData data)
     {
-        data.storyVariables = storyVariables;
+        data.trust = trust;
+        data.knowledge = knowledge;
     }
 
     public void Load(StoryManagerSaveData data)
     {
-        storyVariables = data.storyVariables;
+        trust = data.trust;
+        knowledge = data.knowledge;
         CheckStoryChanged();
     }
 }
@@ -137,5 +130,6 @@ public class StoryManager : MonoBehaviour
 [System.Serializable]
 public struct StoryManagerSaveData
 {
-    public Dictionary<string, int> storyVariables;
+    public int trust;
+    public int knowledge;
 }

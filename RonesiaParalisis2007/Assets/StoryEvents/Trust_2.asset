@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9a93d666b5019245bfec5cf8d6ce389, type: 3}
-  m_Name: Gubli_Empathy
+  m_Name: Trust_2
   m_EditorClassIdentifier: 
-  eventName: Gubli_Empathy
-  requiredTrust: 0
+  eventName: Trust_2
+  requiredTrust: 2
   requiredKnowledge: 1
-  requiredEmpathy: 2
-  requiredAuthority: 0

@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class InteractableDoor : InteractableObject
 {
-    public Action OnInteractDoor { get; set; }
+    public Action OnInteractDoor;
 
     public override void OnClickAction()
     {
-        Debug.Log("You clicked on a door!");
         OnInteractDoor.Invoke();
     }
 

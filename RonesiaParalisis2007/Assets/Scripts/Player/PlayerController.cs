@@ -1,5 +1,6 @@
 
 using DialogueEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -54,7 +55,11 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
         {
-            if (agent != null) { agent.destination = hit.point; }
+            if (agent != null && !ConversationManager.Instance.IsConversationActive) 
+            { 
+                agent.destination = hit.point;
+                agent.isStopped = false;
+            }
 
             if (clickEffect != null)
                 Instantiate(clickEffect, hit.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);

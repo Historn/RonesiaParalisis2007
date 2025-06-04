@@ -129,13 +129,12 @@ public class CursorController : MonoBehaviour
     {
         if (newSelectionObject != null)
         {
-            StopCoroutine(moveToInteract);
-
+            StopCoroutine(MoveToInteract());
+            StartCoroutine(MoveToInteract());
             clickedInteractable = newSelectionObject;
             agent.isStopped = false;
             agent.destination = clickedInteractable.transform.position;
             
-            StartCoroutine(moveToInteract);
             newSelectionObject = null;
         }
     }
@@ -150,8 +149,8 @@ public class CursorController : MonoBehaviour
         if (clickedInteractable != null)
         {
             agent.ResetPath();
-            agent.isStopped = true;
             clickedInteractable.OnClickAction();
+            agent.isStopped = true;
             clickedInteractable = null;
         }
     }

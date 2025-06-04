@@ -3,7 +3,7 @@ using System;
 
 public class InteractableNPC : InteractableObject
 {
-    public static Action OnAction;
+    public Action OnAction;
 
     public override void OnClickAction()
     {

@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeb46d4f2ce6fe489e2ed5eb4bc77c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoryEvents: []
+  trust: 0
+  knowledge: 0
+  currentActiveEvent: {fileID: 0}
+  StoryEvents:
+  - {fileID: 11400000, guid: 2cd79f8e842c1f345a5f7393cbd317ca, type: 2}
+  - {fileID: 11400000, guid: cbdc88bde2f0f184da5fc9336afd43f4, type: 2}
+  - {fileID: 11400000, guid: 13be74841440fe64e9e5b11848ac007c, type: 2}
 --- !u!114 &6742961554257094471
 MonoBehaviour:
   m_ObjectHideFlags: 0
