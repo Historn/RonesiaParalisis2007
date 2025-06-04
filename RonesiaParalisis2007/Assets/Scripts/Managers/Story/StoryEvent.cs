@@ -9,6 +9,4 @@ public class StoryEvent : ScriptableObject
     [Header("Story Variables Required")]
     public int requiredTrust;
     public int requiredKnowledge;
-    public int requiredEmpathy;
-    public int requiredAuthority;
 }

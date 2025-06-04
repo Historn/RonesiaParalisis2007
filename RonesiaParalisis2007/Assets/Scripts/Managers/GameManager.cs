@@ -4,27 +4,22 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance;
 
-    private static GameManager instance = null;
+    public int trust = 0;
+    public int knowledge = 0;
 
     void Awake()
     {
-        if (instance)
+        if (Instance == null)
         {
-            DestroyImmediate(gameObject);
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-        instance = this;
-
-        DontDestroyOnLoad(gameObject);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
